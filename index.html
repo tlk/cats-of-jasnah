@@ -1,10 +1,10 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cats of Jasnah. Teach your 4-year-old logic</title>
+	<title>Cats of Jasnah</title>
 <style>
 body {
-  background: #FFDDEE;
+  background: #1c4149;
   font-family: Helvetica, Arial, sans-serif;
   font-size: 15px;
   margin: 0;
@@ -197,7 +197,7 @@ svg {
 	</div>
 	<div class='desc'>
 		<br>
-		To answer questions, tap the numbers above or just use your keyboard.
+		Tryk på tallene ovenfor eller brug tallene på tastaturet for at svare på spørgsmålene.
 	</div>
 </div>
 <p></p>
@@ -205,18 +205,18 @@ svg {
 <style>#forkongithub a{background:#000;color:#fff;text-decoration:none;font-family:arial,sans-serif;text-align:center;font-weight:bold;padding:5px 40px;font-size:1rem;line-height:2rem;position:relative;transition:0.5s;}#forkongithub a:hover{background:#c11;color:#fff;}#forkongithub a::before,#forkongithub a::after{content:"";width:100%;display:block;position:absolute;top:1px;left:0;height:1px;background:#fff;}#forkongithub a::after{bottom:1px;top:auto;}@media screen and (min-width:800px){#forkongithub{position:absolute;display:block;top:0;right:0;width:200px;overflow:hidden;height:200px;z-index:9999;}#forkongithub a{width:200px;position:absolute;top:60px;right:-60px;transform:rotate(45deg);-webkit-transform:rotate(45deg);-ms-transform:rotate(45deg);-moz-transform:rotate(45deg);-o-transform:rotate(45deg);box-shadow:4px 4px 10px rgba(0,0,0,0.8);}}</style><span id="forkongithub"><a href="https://github.com/countable/cats-of-jasnah">Fork me on GitHub</a></span>
 
 <div class='instructions'>
-<b>Instructions:</b><br><br>
+<b>Instruktioner:</b><br><br>
 
-Choose a level to start.<br><br>
+Vælg en bane for at starte.<br><br>
 <ul>
-<li onclick='set_level(0)'>0. counting</li>
-<li onclick='set_level(1)'>1. one category</li>
-<li onclick='set_level(2)'>2. negation</li>
-<li onclick='set_level(3)'>3. combination</li>
-<li onclick='set_level(4)'>4. conjunction</li>
-<li onclick='set_level(5)'>5. negation and conjunction</li>
-<li onclick='set_level(6)'>6. triple combination</li>
-<li onclick='set_level(7)'>7. triple conjunction</li>
+<li onclick='set_level(0)'>0. Tælle ælle bælle</li>
+<li onclick='set_level(1)'>1. En kategori</li>
+<li onclick='set_level(2)'>2. Negation</li>
+<li onclick='set_level(3)'>3. Kombination</li>
+<li onclick='set_level(4)'>4. Foreningsmængde</li>
+<li onclick='set_level(5)'>5. Negation og foreningsmængde</li>
+<li onclick='set_level(6)'>6. Triple kombination</li>
+<li onclick='set_level(7)'>7. Triple foreningsmængde</li>
 </ul>
 </div>
 <br>
@@ -343,7 +343,7 @@ const permute_atts = function() {
 const speak = function(text, opts) {
 	opts = opts || {}
 	$("p").text(text)
-	responsiveVoice.speak(text, "US English Female", opts)
+	responsiveVoice.speak(text, "Danish Male", opts)
 }
 
 var make_cats = function() {
@@ -382,7 +382,23 @@ var make_cats = function() {
 	}
 	text += "?"
 	clue = text;
-	speak(text)
+	
+	// happy go lucky translation into Danish!
+	clue = clue
+		.replace("how many", "hvor mange")
+		.replace("ducks", "ænder")
+		.replace("duck", "and")
+		.replace("cats are", "katte er")
+		.replace(/not/g, "ikke")
+		.replace("and are", "og er")
+		.replace("here", "her")
+		.replace("red", "røde")
+		.replace("blue", "blå")
+		.replace("yellow", "gule")
+		.replace("bouncing", "hoppende")
+		.replace("spinning", "roterende")
+
+	speak(clue)
 	
   
     $('svg:gt(0)').remove()
@@ -424,12 +440,12 @@ const submit = function(value) {
 	
 	console.log('answer:', answer)
 	if (value === answer) {
-		speak("That's right, " + answer, {
+		speak("Det er rigtigt, " + answer, {
 			onend: function(){
 				make_cats()
 			}})
 	} else {
-		speak("Good try, but that's wrong.", {
+		speak("Godt forsøg! men det er forkert.", {
 			onend: function() {
 				speak(clue)
 			}
